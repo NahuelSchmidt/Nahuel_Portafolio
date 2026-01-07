@@ -1,74 +1,90 @@
-// ===== PANTALLA DE CARGA =====
-let progress = 0;
-const progressBar = document.getElementById('progressBar');
-const progressText = document.getElementById('progressText');
-const loader = document.getElementById('loader');
+// ===== LOADER REMOVIDO - La página carga directamente =====
 const mainContent = document.getElementById('main-content');
-const playButton = document.getElementById('playButton');
 
-// Simular carga de progreso
-function simulateLoading() {
-    const interval = setInterval(() => {
-        progress += Math.random() * 15;
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(interval);
-            progressText.textContent = '100%';
-            progressBar.style.width = '100%';
-            
-            // Esperar un momento antes de mostrar el contenido
-            setTimeout(() => {
-                hideLoader();
-            }, 500);
-        } else {
-            progressText.textContent = Math.floor(progress) + '%';
-            progressBar.style.width = progress + '%';
-        }
-    }, 200);
-}
-
-// Ocultar loader
-function hideLoader() {
-    loader.style.opacity = '0';
-    loader.style.transition = 'opacity 0.5s ease';
-    setTimeout(() => {
-        loader.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        mainContent.style.opacity = '0';
-        mainContent.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => {
-            mainContent.style.opacity = '1';
-        }, 10);
-    }, 500);
-}
-
-// Permitir saltar la carga con el botón de play
-if (playButton) {
-    playButton.addEventListener('click', () => {
-        progress = 100;
-        progressText.textContent = '100%';
-        progressBar.style.width = '100%';
-        setTimeout(() => {
-            hideLoader();
-        }, 300);
-    });
-
-    // Permitir saltar la carga después de 2 segundos
-    setTimeout(() => {
-        if (playButton) {
-            playButton.style.cursor = 'pointer';
-        }
-    }, 2000);
-}
-
-// Iniciar carga automática
-window.addEventListener('load', () => {
-    simulateLoading();
-});
+// Permitir scroll desde el inicio
+document.body.style.overflow = 'auto';
 
 // ===== NAVEGACIÓN =====
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('.section');
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
+const navOverlay = document.getElementById('navOverlay');
+
+// Toggle del menú móvil
+function toggleMenu() {
+    if (menuToggle && mainNav) {
+        menuToggle.classList.toggle('active');
+        mainNav.classList.toggle('active');
+        
+        // Toggle overlay
+        if (navOverlay) {
+            navOverlay.classList.toggle('active');
+        }
+        
+        // Prevenir scroll del body cuando el menú está abierto
+        if (mainNav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
+}
+
+// Cerrar menú
+function closeMenu() {
+    if (menuToggle && mainNav) {
+        menuToggle.classList.remove('active');
+        mainNav.classList.remove('active');
+        
+        // Cerrar overlay
+        if (navOverlay) {
+            navOverlay.classList.remove('active');
+        }
+        
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Event listener para el botón del menú
+if (menuToggle) {
+    menuToggle.addEventListener('click', toggleMenu);
+}
+
+// Cerrar menú al hacer clic en un enlace
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-section');
+        const targetSection = document.getElementById(targetId);
+        
+        // Cerrar menú móvil si está abierto
+        closeMenu();
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Cerrar menú al hacer clic fuera de él o en el overlay
+document.addEventListener('click', (e) => {
+    if (mainNav && mainNav.classList.contains('active')) {
+        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+            closeMenu();
+        }
+    }
+});
+
+// Cerrar menú al hacer clic en el overlay
+if (navOverlay) {
+    navOverlay.addEventListener('click', closeMenu);
+}
+
+// Cerrar menú al hacer scroll (se maneja en el listener de scroll del header más abajo)
 
 // Actualizar navegación activa al hacer scroll
 function updateActiveNav() {
@@ -89,22 +105,6 @@ function updateActiveNav() {
         }
     });
 }
-
-// Navegación suave
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('data-section');
-        const targetSection = document.getElementById(targetId);
-        
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
 
 // Scroll navigation
 function scrollToSection(sectionId) {
@@ -160,29 +160,7 @@ window.addEventListener('scroll', () => {
 });
 
 
-// ===== PREVENIR SCROLL DURANTE LOADER =====
-document.body.style.overflow = 'hidden';
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        if (loader.classList.contains('hidden')) {
-            document.body.style.overflow = 'auto';
-        }
-    }, 600);
-});
-
-// Cuando se oculta el loader, permitir scroll
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.target.classList.contains('hidden')) {
-            document.body.style.overflow = 'auto';
-        }
-    });
-});
-
-observer.observe(loader, {
-    attributes: true,
-    attributeFilter: ['class']
-});
+// Scroll habilitado desde el inicio (loader removido)
 
 // ===== SCROLL REVEAL ANIMATIONS =====
 const observerOptions = {
@@ -209,28 +187,10 @@ function initScrollAnimations() {
     });
 }
 
-// Inicializar animaciones cuando el contenido principal esté visible
+// Inicializar animaciones directamente
 setTimeout(() => {
-    if (!mainContent.classList.contains('hidden')) {
-        initScrollAnimations();
-    }
-}, 500);
-
-// Reinicializar cuando el contenido se muestre
-const mainObserver = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (!mutation.target.classList.contains('hidden')) {
-            setTimeout(() => {
-                initScrollAnimations();
-            }, 300);
-        }
-    });
-});
-
-mainObserver.observe(mainContent, {
-    attributes: true,
-    attributeFilter: ['class']
-});
+    initScrollAnimations();
+}, 100);
 
 // ===== ANIMACIÓN DE HOVER EN TARJETAS =====
 document.querySelectorAll('.project-card, .service-card').forEach(card => {
@@ -239,34 +199,83 @@ document.querySelectorAll('.project-card, .service-card').forEach(card => {
     });
 });
 
-// ===== ANIMACIÓN SMOOTH EN LINKS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+// ===== TEMA OSCURO / CLARO =====
+const root = document.documentElement;
+const header = document.querySelector('.header');
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+    if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+    } else {
+        root.removeAttribute('data-theme');
+        theme = 'dark';
+    }
+    localStorage.setItem('theme', theme);
+    
+    // Resetear el header cuando cambia el tema
+    if (header) {
+        header.style.backgroundColor = '';
+        header.style.backdropFilter = 'none';
+        header.style.boxShadow = '';
+    }
+}
+
+// Determinar tema inicial
+const storedTheme = localStorage.getItem('theme');
+const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+if (storedTheme) {
+    applyTheme(storedTheme);
+} else if (prefersLight) {
+    applyTheme('light');
+} else {
+    applyTheme('dark');
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        applyTheme(currentTheme === 'light' ? 'dark' : 'light');
     });
-});
+}
 
 // ===== ANIMACIÓN EN HEADER AL SCROLL =====
 let lastScroll = 0;
-const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
+    // Cerrar menú móvil si está abierto y hay scroll significativo
+    if (mainNav && mainNav.classList.contains('active')) {
+        if (Math.abs(currentScroll - lastScroll) > 50) {
+            closeMenu();
+        }
+    }
+    
+    if (!header) return;
+
+    // Verificar el tema actual
+    const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+
     if (currentScroll > 100) {
-        header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-        header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+        if (isLightTheme) {
+            // Modo claro: header blanco
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+        } else {
+            // Modo oscuro: header negro
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.7)';
+            header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        }
         header.style.backdropFilter = 'blur(10px)';
     } else {
-        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.08)';
-        header.style.backgroundColor = '#ffffff';
+        if (isLightTheme) {
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.08)';
+        } else {
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.6)';
+        }
+        header.style.backgroundColor = '';
         header.style.backdropFilter = 'none';
     }
     
@@ -279,7 +288,7 @@ window.addEventListener('scroll', () => {
 function animateTextByLetters(element, delay = 0) {
     if (!element) return;
     
-    const text = element.textContent;
+    const text = element.textContent.trim(); // Eliminar espacios al inicio y final
     element.textContent = '';
     element.style.opacity = '1';
     
@@ -301,8 +310,8 @@ function animateTextByLetters(element, delay = 0) {
 function animateTextByWords(element, delay = 0) {
     if (!element) return;
     
-    const text = element.textContent;
-    const words = text.split(' ');
+    const text = element.textContent.trim(); // Eliminar espacios al inicio y final
+    const words = text.split(/\s+/).filter(word => word.length > 0); // Dividir por espacios y filtrar vacíos
     element.textContent = '';
     element.style.opacity = '1';
     
@@ -311,7 +320,12 @@ function animateTextByWords(element, delay = 0) {
         span.textContent = word;
         span.style.opacity = '0';
         span.style.display = 'inline-block';
-        span.style.marginRight = '0.3em';
+        
+        // Agregar espacio solo si no es el último elemento
+        if (index < words.length - 1) {
+            span.style.marginRight = '0.3em';
+        }
+        
         element.appendChild(span);
         
         setTimeout(() => {
@@ -321,26 +335,23 @@ function animateTextByWords(element, delay = 0) {
     });
 }
 
-// Aplicar animaciones cuando el contenido esté visible
+// Aplicar animaciones directamente
 setTimeout(() => {
-    if (!mainContent.classList.contains('hidden')) {
-        // Animar títulos principales
-        const heroTitle = document.querySelector('.hero-title');
-        if (heroTitle && !heroTitle.querySelector('span')) {
-            setTimeout(() => {
-                animateTextByLetters(heroTitle, 200);
-            }, 300);
-        }
-        
-        // Animar descripciones palabra por palabra
-        const heroDesc = document.querySelector('.hero-description');
-        if (heroDesc) {
-            setTimeout(() => {
-                animateTextByWords(heroDesc, 800);
-            }, 600);
-        }
+    // Animar títulos principales
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle && !heroTitle.querySelector('span')) {
+        setTimeout(() => {
+            animateTextByLetters(heroTitle, 200);
+        }, 300);
     }
-}, 1000);
+    
+    // Descripción hero con animación simple fadeIn
+    const heroDesc = document.querySelector('.hero-description');
+    if (heroDesc) {
+        heroDesc.style.opacity = '0';
+        heroDesc.style.animation = 'fadeIn 0.8s ease-out 0.6s forwards';
+    }
+}, 500);
 
 // Animación de textos al hacer scroll
 const textObserver = new IntersectionObserver((entries) => {
@@ -355,13 +366,13 @@ const textObserver = new IntersectionObserver((entries) => {
                 }
             }
             
-            // Si es una descripción, animar palabra por palabra
+            // Si es una descripción, usar animación simple fadeIn
             if (element.classList.contains('project-description') || 
                 element.classList.contains('service-description') ||
                 element.classList.contains('about-bio')) {
-                if (!element.querySelector('span')) {
-                    animateTextByWords(element, 0);
-                }
+                // Remover animación palabra por palabra, usar fadeIn simple
+                element.style.opacity = '0';
+                element.style.animation = 'fadeIn 0.8s ease-out forwards';
             }
             
             textObserver.unobserve(element);
@@ -382,8 +393,39 @@ function initTextAnimations() {
 
 // Inicializar cuando el contenido esté visible
 setTimeout(() => {
-    if (!mainContent.classList.contains('hidden')) {
-        initTextAnimations();
+    initTextAnimations();
+}, 100);
+
+// ===== ANIMACIÓN 3D SIGUIENDO EL CURSOR =====
+function init3dMouseFollow() {
+    const code3dPanel = document.querySelector('.code-3d-panel');
+    const code3dContainer = document.querySelector('.code-3d-container');
+
+    if (code3dContainer && code3dPanel) {
+        code3dContainer.addEventListener('mousemove', (e) => {
+            const rect = code3dContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateY = ((x - centerX) / centerX) * 20;
+            const rotateX = -((y - centerY) / centerY) * 20;
+            
+            code3dPanel.style.transform = `rotateY(${-18 + rotateY}deg) rotateX(${12 + rotateX}deg)`;
+        });
+        
+        code3dContainer.addEventListener('mouseleave', () => {
+            code3dPanel.style.transform = 'rotateY(-18deg) rotateX(12deg)';
+        });
     }
-}, 500);
+}
+
+// Inicializar 3D mouse follow directamente
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        init3dMouseFollow();
+    }, 100);
+});
 
