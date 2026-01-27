@@ -1200,14 +1200,21 @@ a.btn:focus {
     font-size: 0.85rem;
 }
 
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
 .project-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--bg-dark);
     text-decoration: none;
     font-weight: 600;
-    transition: gap 0.3s ease, transform 0.3s ease;
+    transition: gap 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     position: relative;
 }
 
@@ -1222,6 +1229,56 @@ a.btn:focus {
 
 .project-link:hover .link-arrow {
     transform: translateX(5px);
+}
+
+/* Botón Ver: visible en tema oscuro (fondo claro en cards) y claro */
+.project-link--ver {
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--text-dark);
+    background-color: transparent;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.project-link--ver:hover {
+    background-color: var(--text-dark);
+    color: var(--bg-page);
+    border-color: var(--text-dark);
+}
+
+[data-theme="light"] .project-link--ver {
+    border: 1px solid var(--bg-dark);
+    color: var(--bg-dark);
+}
+
+[data-theme="light"] .project-link--ver:hover {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    border-color: var(--bg-dark);
+}
+
+.project-link--github {
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--border-radius);
+    border: 2px solid rgba(148, 163, 184, 0.5);
+    background-color: transparent;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.project-link--github:hover {
+    background-color: rgba(148, 163, 184, 0.18);
+    border-color: var(--gray);
+}
+
+[data-theme="light"] .project-link--github {
+    border-color: var(--gray);
+    color: var(--text-dark);
+}
+
+[data-theme="light"] .project-link--github:hover {
+    background-color: rgba(0, 0, 0, 0.06);
 }
 
 .github-icon {
@@ -1327,6 +1384,10 @@ a.btn:focus {
         gap: 3rem;
     }
 
+    .hero-content {
+        align-items: center;
+    }
+
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1337,6 +1398,35 @@ a.btn:focus {
 
     .code-3d-container {
         max-width: 100%;
+        min-width: 0;
+    }
+
+    .code-3d-body {
+        min-width: 0;
+    }
+
+    .code-line {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .code-header-title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .code-3d-header {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+    }
+
+    .code-dot {
+        flex-shrink: 0;
     }
 }
 
@@ -1424,6 +1514,48 @@ a.btn:focus {
         gap: 2.5rem;
     }
 
+    .hero-section {
+        align-items: flex-start;
+        min-height: auto;
+        padding-top: 5rem;
+        overflow-x: hidden;
+    }
+
+    .hero-section .container {
+        width: 100%;
+    }
+
+    .hero-content {
+        align-items: stretch;
+        gap: 2rem;
+        grid-template-rows: auto auto;
+    }
+
+    .hero-text {
+        min-width: 0;
+    }
+
+    .hero-image {
+        min-width: 0;
+        width: 100%;
+        order: 2;
+    }
+
+    .code-3d-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .code-3d-shadow {
+        inset: 10px;
+        transform: translateY(20px);
+    }
+
+    .code-3d-panel {
+        transform: rotateY(0deg) rotateX(0deg);
+        width: 100%;
+    }
+
     .projects-grid,
     .services-grid {
         grid-template-columns: 1fr;
@@ -1432,10 +1564,19 @@ a.btn:focus {
 
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.2;
     }
 
     .hero-subtitle {
         font-size: 1.5rem;
+        min-height: 2.5rem;
+    }
+
+    .typing-text {
+        display: inline-block;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     .section-title {
@@ -1444,10 +1585,6 @@ a.btn:focus {
 
     .section {
         padding: 5rem 1.5rem 2rem;
-    }
-
-    .code-3d-panel {
-        transform: rotateY(0deg) rotateX(0deg);
     }
 
     .about-image .image-frame {
@@ -2696,4 +2833,3 @@ a.btn:focus {
         height: 24px;
     }
 }
-
