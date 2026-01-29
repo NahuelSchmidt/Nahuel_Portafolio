@@ -1236,27 +1236,28 @@ a.btn:focus {
 .project-link--ver {
     padding: 0.6rem 1.5rem;
     border-radius: var(--border-radius);
-    border: 1px solid var(--text-dark);
+    border: 1px solid var(--text-light);
     background-color: transparent;
-    color: var(--text-dark);
+    color: var(--text-light);
     font-size: 0.95rem;
 }
 
 .project-link--ver:hover {
-    background-color: var(--text-dark);
+    background-color: var(--text-light);
     color: var(--bg-page);
-    border-color: var(--text-dark);
+    border-color: var(--text-light);
 }
 
 [data-theme="light"] .project-link--ver {
-    border: 1px solid var(--bg-dark);
-    color: var(--bg-dark);
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    background-color: var(--bg-dark);
 }
 
 [data-theme="light"] .project-link--ver:hover {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    border-color: var(--bg-dark);
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-color: #ffffff;
 }
 
 .project-link--github {
@@ -1540,12 +1541,14 @@ a.btn:focus {
         min-width: 0;
         width: 100%;
         order: 2;
+        display: none;
     }
 
     .code-3d-container {
         width: 100%;
         max-width: 400px;
         margin: 0 auto;
+        display: none;
     }
 
     .code-3d-shadow {
@@ -1681,6 +1684,11 @@ a.btn:focus {
     .code-3d-container {
         max-width: 380px;
         margin: 0 auto;
+        display: none;
+    }
+
+    .hero-image {
+        display: none;
     }
 
     .code-3d-panel {
@@ -1845,6 +1853,11 @@ a.btn:focus {
     .code-3d-container {
         max-width: 340px;
         margin: 0 auto;
+        display: none;
+    }
+
+    .hero-image {
+        display: none;
     }
 
     .code-3d-panel {
@@ -1935,6 +1948,11 @@ a.btn:focus {
     .code-3d-container {
         max-width: 300px;
         margin: 0 auto;
+        display: none;
+    }
+
+    .hero-image {
+        display: none;
     }
 
     .code-3d-panel {
