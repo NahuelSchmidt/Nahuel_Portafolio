@@ -631,6 +631,10 @@ a {
     margin-bottom: 4px;
 }
 
+.detail-item + .detail-item {
+    margin-top: 14px;
+}
+
 .detail-meta {
     color: var(--text-muted);
     font-size: 13px;
@@ -669,6 +673,10 @@ a {
     transition: var(--transition);
 }
 
+.project-card[data-link] {
+    cursor: pointer;
+}
+
 .project-card:hover,
 .service-card:hover {
     transform: translateY(-6px);
@@ -678,6 +686,7 @@ a {
 .project-image {
     height: 200px;
     overflow: hidden;
+    display: block;
 }
 
 .project-img {

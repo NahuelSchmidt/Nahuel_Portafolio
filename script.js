@@ -199,6 +199,17 @@ document.querySelectorAll('.project-card, .service-card').forEach(card => {
     });
 });
 
+// ===== TARJETAS CLICKEABLES =====
+document.querySelectorAll('.project-card[data-link]').forEach(card => {
+    card.addEventListener('click', (event) => {
+        if (event.target && event.target.closest('a')) return;
+        const link = card.getAttribute('data-link');
+        if (link) {
+            window.open(link, '_blank', 'noopener,noreferrer');
+        }
+    });
+});
+
 // ===== TEMA OSCURO / CLARO =====
 const root = document.documentElement;
 const header = document.querySelector('.header');
