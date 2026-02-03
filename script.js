@@ -260,7 +260,7 @@ window.addEventListener('scroll', () => {
 // ===== ANIMACIONES DE TEXTO ADICIONALES =====
 
 // Animación de letras en títulos
-function animateTextByLetters(element, delay = 0) {
+function animateTextByLetters(element, delay = 0, speed = 50) {
     if (!element) return;
     
     const text = element.textContent.trim(); // Eliminar espacios al inicio y final
@@ -277,7 +277,7 @@ function animateTextByLetters(element, delay = 0) {
         setTimeout(() => {
             span.style.animation = 'letterPop 0.5s ease-out forwards';
             span.style.opacity = '1';
-        }, delay + (index * 50));
+        }, delay + (index * speed));
     });
 }
 
@@ -318,6 +318,13 @@ setTimeout(() => {
         setTimeout(() => {
             animateTextByLetters(heroTitle, 200);
         }, 300);
+    }
+
+    const heroValue = document.querySelector('.hero-value');
+    if (heroValue && !heroValue.querySelector('span')) {
+        setTimeout(() => {
+            animateTextByLetters(heroValue, 0, 28);
+        }, 120);
     }
     
     // Descripción hero con animación simple fadeIn
