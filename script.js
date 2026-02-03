@@ -122,7 +122,7 @@ window.addEventListener('scroll', updateActiveNav);
 // ===== EFECTO DE TYPING =====
 const typingText = document.getElementById('typingText');
 if (typingText) {
-    const text = 'Desarrollador Web Full Stack|';
+    const text = 'Desarrollador Full Stack|';
     let charIndex = 0;
     let isDeleting = false;
 
@@ -212,13 +212,6 @@ function applyTheme(theme) {
         theme = 'dark';
     }
     localStorage.setItem('theme', theme);
-    
-    // Resetear el header cuando cambia el tema
-    if (header) {
-        header.style.backgroundColor = '';
-        header.style.backdropFilter = 'none';
-        header.style.boxShadow = '';
-    }
 }
 
 // Determinar tema inicial
@@ -255,28 +248,10 @@ window.addEventListener('scroll', () => {
     
     if (!header) return;
 
-    // Verificar el tema actual
-    const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
-
-    if (currentScroll > 100) {
-        if (isLightTheme) {
-            // Modo claro: header blanco
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-        } else {
-            // Modo oscuro: header negro
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.7)';
-            header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
-        }
-        header.style.backdropFilter = 'blur(10px)';
+    if (currentScroll > 80) {
+        header.classList.add('scrolled');
     } else {
-        if (isLightTheme) {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.08)';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.6)';
-        }
-        header.style.backgroundColor = '';
-        header.style.backdropFilter = 'none';
+        header.classList.remove('scrolled');
     }
     
     lastScroll = currentScroll;
@@ -402,18 +377,29 @@ function init3dMouseFollow() {
     const code3dContainer = document.querySelector('.code-3d-container');
 
     if (code3dContainer && code3dPanel) {
-        code3dContainer.addEventListener('mousemove', (e) => {
+        let rafId = null;
+        let latestEvent = null;
+
+        const updateTilt = () => {
+            if (!latestEvent) return;
             const rect = code3dContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
+            const x = latestEvent.clientX - rect.left;
+            const y = latestEvent.clientY - rect.top;
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
-            const rotateY = ((x - centerX) / centerX) * 20;
-            const rotateX = -((y - centerY) / centerY) * 20;
-            
-            code3dPanel.style.transform = `rotateY(${-18 + rotateY}deg) rotateX(${12 + rotateX}deg)`;
+
+            const rotateY = ((x - centerX) / centerX) * 18;
+            const rotateX = -((y - centerY) / centerY) * 18;
+
+            code3dPanel.style.transform = `rotateY(${-14 + rotateY}deg) rotateX(${10 + rotateX}deg)`;
+            rafId = null;
+        };
+
+        code3dContainer.addEventListener('mousemove', (e) => {
+            latestEvent = e;
+            if (rafId) return;
+            rafId = requestAnimationFrame(updateTilt);
         });
         
         code3dContainer.addEventListener('mouseleave', () => {
@@ -428,4 +414,3 @@ document.addEventListener('DOMContentLoaded', () => {
         init3dMouseFollow();
     }, 100);
 });
-

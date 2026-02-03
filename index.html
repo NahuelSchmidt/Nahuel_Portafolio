@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nahuel - Portfolio</title>
     <link rel="icon" type="image/jpeg" href="imagenes/logocarpetablanca.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="bg-effects" aria-hidden="true">
+        <span class="bg-orb orb-1"></span>
+        <span class="bg-orb orb-2"></span>
+        <span class="bg-orb orb-3"></span>
+        <span class="bg-grid"></span>
+        <span class="bg-noise"></span>
+    </div>
     <!-- Contenido Principal -->
     <div id="main-content" class="main-content">
         <!-- Navegación -->
@@ -83,20 +93,26 @@
                     <div class="hero-text">
                         <h1 class="hero-title">Hola, soy Nahuel</h1>
                         <div class="hero-subtitle">
-                            <span class="typing-text" id="typingText">Desarrollador Web Full Stack|</span>
+                            <span class="typing-text" id="typingText">Desarrollador Full Stack|</span>
                         </div>
                         <p class="hero-description">
-                            Soy estudiante de Ingenieria en Sistemas y Desarrollador Web. Me apasiona crear, aprender y llevar mis ideas a la realidad a través de la programación y creatividad.
+                            Soy estudiante de Ingenieria en Sistemas y Desarrollador Web. Me gusta trabajar de cerca con cada cliente para transformar ideas en experiencias digitales claras, rápidas y con personalidad.
                         </p>
+                        <div class="hero-stack">
+                            <span class="hero-stack-item">React</span>
+                            <span class="hero-stack-item">Node.js</span>
+                            <span class="hero-stack-item">JavaScript</span>
+                            <span class="hero-stack-item">Python</span>
+                        </div>
                         <div class="hero-buttons">
-                            <a href="https://wa.me/5491123456789?text=Hola!%20Me%20interesa%20contactarte" target="_blank" class="btn btn-outline">
+                            <a href="https://wa.me/5492974299808?text=Hola%20Nahuel,%20quiero%20una%20web%20moderna%20para%20atraer%20clientes.%20%C2%BFPodemos%20agendar%20una%20llamada%20breve%3F" target="_blank" class="btn btn-solid">
                                 Contactar
                                 <span class="btn-arrow">→</span>
                             </a>
-                            <button class="btn btn-solid">
+                            <a href="#proyectos" class="btn btn-outline">
                                 <span class="btn-icon">↓</span>
-                                Descargar CV
-                            </button>
+                                Ver proyectos
+                            </a>
                         </div>
                         <div class="social-section">
                             <p class="social-title">Seguime</p>
@@ -186,7 +202,7 @@
                 <div class="about-content">
                     <div class="about-image">
                         <div class="image-frame">
-                            <img src="imagenes/logo,port.jpeg" alt="Nahuel" class="about-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="imagenes/logo,port.jpeg" alt="Nahuel" class="about-photo" width="512" height="560" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="image-placeholder" style="display: none;">
 
                             </div>
@@ -196,13 +212,13 @@
                         <h2 class="section-title">Acerca de Mí</h2>
                         <h3 class="about-name">Nahuel</h3>
                         <p class="about-bio">
-                            Estudiante de Ingeniera en Sitemas de Informacion. Apasionado por la programación, el desarrollo web y la ciencia de datos.
+                            Estudiante de Ingeniera en Sitemas de Informacion. Disfruto crear productos simples, bien pensados y fáciles de usar, con foco en detalle visual y rendimiento.
                         </p>
                         <div class="about-details">
                             <div class="detail-section">
                                 <h4>Educación</h4>
                                 <div class="detail-item">
-                                    <strong>Universidad Tecnologica Nacion</strong>
+                                    <strong>Universidad Tecnologica Nacional</strong>
                                     <p>Ingenieria en Sistemas de Informacion</p>
                                     <p class="detail-meta">2023 - Actualmente</p>
                                 </div>
@@ -219,12 +235,13 @@
                                 <h4>Habilidades Técnicas</h4>
                                 <div class="skills-tags">
                                     <span class="skill-tag">Python</span>
-                                    <span class="skill-tag">AI/ML</span>
-                                    <span class="skill-tag">Mongo.DB</span>
-                                    <span class="skill-tag">TypeScript</span>
-                                    <span class="skill-tag">React</span>
-                                    <span class="skill-tag">Node.js</span>
+                                    <span class="skill-tag">JavaScript</span>
                                     <span class="skill-tag">Git</span>
+                                    <span class="skill-tag">MongoDB</span>
+                                    <span class="skill-tag">Node.js</span>
+                                    <span class="skill-tag">React.js</span>
+                                    <span class="skill-tag">HTML</span>
+                                    <span class="skill-tag">CSS</span>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +260,7 @@
                 <div class="projects-grid">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="imagenes/image.png" alt="Penguin Academy" class="project-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="imagenes/image.png" alt="Penguin Academy" class="project-img" width="1600" height="864" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="placeholder-illustration project-illustration" style="display: none;">
                                 
                             </div>
@@ -265,7 +282,7 @@
                     </div>
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="imagenes/image copy.png" alt="TREEJS" class="project-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="imagenes/image copy.png" alt="TREEJS" class="project-img" width="1600" height="865" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="placeholder-illustration project-illustration" style="display: none;">
                                 <p>Agrega: imagenes/proyecto2.jpg</p>
                             </div>
@@ -287,15 +304,15 @@
                     </div>
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="imagenes/image copy 2.png" alt="Entropy Evolve" class="project-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="imagenes/image copy 2.png" alt="Entropy Evolve" class="project-img" width="1600" height="865" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="placeholder-illustration project-illustration" style="display: none;">
                             
                             </div>
                         </div>
                         <div class="project-content">
-                            <h3 class="project-title">Sistema Saas</h3>
+                            <h3 class="project-title">Sistema SaaS</h3>
                             <p class="project-description">
-                                Gestion de turnos
+                                Gestión de turnos
                             </p>
                             <div class="project-tags">
                                 <span class="project-tag">Python</span>
@@ -328,7 +345,7 @@
                         </div>
                         <h3 class="service-title">Desarrollo Web</h3>
                         <p class="service-description">
-                            Creación de aplicaciones web modernas y responsivas con las últimas tecnologías.
+                            Desarrollo sitios y aplicaciones web a medida, cuidando rendimiento, accesibilidad y una buena experiencia de usuario.
                         </p>
                     </div>
                     <div class="service-card">
@@ -341,7 +358,7 @@
                         </div>
                         <h3 class="service-title">Diseño Web</h3>
                         <p class="service-description">
-                            Diseño de paginas web modernas y responsivas.
+                            Diseño interfaces limpias y atractivas que transmiten confianza y hacen que tu marca se vea profesional.
                         </p>
                     </div>
                     <div class="service-card">
@@ -355,12 +372,12 @@
                         </div>
                         <h3 class="service-title">Full Stack</h3>
                         <p class="service-description">
-                            Soluciones completas desde el backend hasta el frontend, optimizadas y escalables.
+                            Me ocupo de todo el flujo: desde la idea hasta el sitio online, con mantenimiento y mejoras si lo necesitás.
                         </p>
                     </div>
                 </div>
                 <div class="services-cta">
-                    <a href="https://wa.me/5491123456789?text=Hola!%20Me%20interesa%20tus%20servicios" target="_blank" class="btn btn-cta">
+                    <a href="https://wa.me/5492974299808?text=Hola%20Nahuel,%20quiero%20una%20web%20moderna%20para%20atraer%20clientes.%20%C2%BFPodemos%20agendar%20una%20llamada%20breve%3F" target="_blank" class="btn btn-cta">
                         <span class="btn-arrow">→</span>
                         Contactame
                     </a>
@@ -370,7 +387,7 @@
     </div>
 
     <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/5491123456789?text=Hola!%20Me%20interesa%20contactarte" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+    <a href="https://wa.me/5492974299808?text=Hola%20Nahuel,%20quiero%20una%20web%20moderna%20para%20atraer%20clientes.%20%C2%BFPodemos%20agendar%20una%20llamada%20breve%3F" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="currentColor"/>
         </svg>
@@ -379,4 +396,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
