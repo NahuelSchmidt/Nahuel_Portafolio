@@ -821,6 +821,26 @@ a {
     margin-top: 32px;
 }
 
+/* ===== FOOTER ===== */
+.footer {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-page);
+}
+
+.footer-text {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    opacity: 0.6;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+[data-theme="light"] .footer-text {
+    opacity: 0.5;
+}
+
 /* ===== WhatsApp ===== */
 .whatsapp-float {
     position: fixed;
